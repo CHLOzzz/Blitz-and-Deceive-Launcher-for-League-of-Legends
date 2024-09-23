@@ -19,6 +19,10 @@ exit
     set file_name=League of Legends w Deceive and Blitz.bat
     if not "%file_name%"=="%~nx0" (
         rename "%~nx0" "%file_name%"
+        echo It was detected that this file was renamed. Please refrain from renaming this file in the future.
+        echo.
+        echo.
+        pause
         start "" "%cd%\%file_name%"
         exit
     )
@@ -41,6 +45,9 @@ exit
     :: NOTE: Counter is used for referencing arrays; starts at 0 not 1
     if %counter%==0 (
         :DownloadDeceive
+        echo Deceive not found. Downloading Deceive.
+        echo.
+        echo.
         curl -O -L "https://github.com/molenzwiebel/Deceive/releases/latest/download/Deceive.exe"
         exit /b
     )
@@ -72,7 +79,13 @@ exit
     for /f "tokens=4 delims=/ " %%A in ('curl -L -I "https://blitz.gg/download/win" 2^>nul ^| findstr /i "^location:"') do (
         set blitz_name=%%A
     )
+    echo Blitz not found. Downloading Blitz.
+    echo.
+    echo.
     curl -L "https://blitz.gg/download/win" --output "%cd%\%blitz_name%"
+    echo.
+    echo.
+    echo Installing Blitz. Install file will be removed once installation is done...
     start /wait "" "%cd%\%blitz_name%"
     del "%cd%\%blitz_name%"
     exit /b
